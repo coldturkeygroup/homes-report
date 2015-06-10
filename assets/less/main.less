@@ -58,8 +58,18 @@ html {
     margin-bottom: 20px;
   }
 
+  select.form-control {
+    -webkit-appearance: menulist;
+    box-sizing: border-box;
+    align-items: center;
+    white-space: pre;
+    -webkit-rtl-ordering: logical;
+    cursor: default;
+  }
+
   input[type="text"].form-control,
-  input[type="email"].form-control {
+  input[type="email"].form-control,
+  select.form-control {
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;

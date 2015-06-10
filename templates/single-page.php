@@ -144,7 +144,7 @@ if ( $hover_setting && $hover_setting != '' )
 						<div class="modal-body">
 							<h1>Where should we send your search results?</h1>
 
-							<p>Homes in <span id="location-answer"></span> that sold for between $<span id="price-answer"></span></p>
+							<p>Homes in <span id="location-answer"></span> that sold for between <span id="price-answer"></span></p>
 
 							<div class="form-group" style="margin-top:20px">
 								<label for="first_name" class="control-label">First Name</label>

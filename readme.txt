@@ -3,7 +3,7 @@ Contributors: Aaron Huisinga
 Tags: real estate, platform, homes report
 Requires at least: 3.5
 Tested up to: 4.1
-Stable tag: 1.0.2
+Stable tag: 1.0.3
 
 WordPress funnel that collects visitor contact information in exchange for a customized report from a Real Estate agent.
 

@@ -393,7 +393,7 @@
 									<td align="center" valign="top" class="bodyContent" style="padding: 44px 30px 0;font-family: Verdana, Arial, Helvetica, sans-serif;text-align: left;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;color: #3A3A3A;font-size: 16px;font-weight: normal;line-height: 169%;-webkit-font-smoothing: antialiased;">
     <span class="notlook">
     <h3 style="font-family:'Helvetica Neue',Helvetica, Arial, sans-serif;font-size:18px;font-weight:bold;line-height:115%;margin:0;padding:0;text-align:left;-webkit-font-smoothing:antialiased;color:#3A3A3A ;text-decoration:none ;">
-	    Prospect Quiz Results</h3></span>
+	    Prospect Results</h3></span>
 									</td>
 								</tr>
 								<tr>
@@ -401,10 +401,7 @@
                     <span class="notlook">
                       <p>
 	                      <strong>Location: </strong><?= $subscriber->location ?><br>
-	                      <strong>Price Range: </strong>$<?= number_format( $subscriber->price_min ) ?> -
-	                      $<?= number_format( $subscriber->price_max ) ?><br>
-	                      <strong># Bedrooms: </strong><?= $subscriber->num_beds ?><br>
-	                      <strong># Bathrooms: </strong><?= $subscriber->num_baths ?>
+	                      <strong>Price Range: </strong><?= $subscriber->price_range ?>
                       </p>
                     </span>
 									</td>
