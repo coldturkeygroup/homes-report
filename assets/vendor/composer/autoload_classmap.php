@@ -6,7 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'ColdTurkey\\HouseHunter\\FrontDesk' => $baseDir . '/../classes/class-frontdesk.php',
-    'ColdTurkey\\HouseHunter\\HouseHunter' => $baseDir . '/../classes/class-homes-report.php',
-    'ColdTurkey\\HouseHunter\\HouseHunter_Admin' => $baseDir . '/../classes/class-homes-report-admin.php',
+    'ColdTurkey\\HomesReport\\FrontDesk' => $baseDir . '/../classes/class-frontdesk.php',
+    'ColdTurkey\\HomesReport\\HomesReport' => $baseDir . '/../classes/class-homes-report.php',
+    'ColdTurkey\\HomesReport\\HomesReport_Admin' => $baseDir . '/../classes/class-homes-report-admin.php',
 );

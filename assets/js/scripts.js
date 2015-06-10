@@ -22,8 +22,8 @@ jQuery('document').ready(function ($) {
       $('#' + $(this).attr('id') + '-answer').text($(this).val());
     });
 
-    $('#price_min,#price_max,#num_baths,#num_beds').each(function () {
-      var numbers_comma = /^[0-9,]*$/;
+    $('#price').each(function () {
+      var numbers_comma = /^[0-9,$+-]*$/;
 
       if (!numbers_comma.test($(this).val())) {
         var label = $("label[for='" + $(this).attr('id') + "']").text();

@@ -157,10 +157,7 @@ class HomesReport
 								`first_name` varchar(255) DEFAULT NULL,
 								`email` varchar(255) DEFAULT NULL,
 								`location` varchar(255) NOT NULL,
-								`price_min` varchar(255) DEFAULT NULL,
-								`price_max` varchar(20) DEFAULT NULL,
-								`num_beds` int(10) DEFAULT NULL,
-								`num_baths` int(10) DEFAULT NULL,
+								`price_range` varchar(255) DEFAULT NULL,
 								`created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
 								PRIMARY KEY (`id`)
 							) $charset_collate;";
@@ -282,6 +279,11 @@ class HomesReport
                 if ($type == 'text') {
                     $html .= '<tr valign="top"><th scope="row"><label for="' . esc_attr($k) . '">' . $v['name'] . '</label></th><td>';
                     $html .= '<input style="width:100%" name="' . esc_attr($k) . '" id="' . esc_attr($k) . '" placeholder="' . esc_attr($placeholder) . '" type="text" value="' . esc_attr($data) . '" />';
+                    $html .= '<p class="description">' . $v['description'] . '</p>' . "\n";
+                    $html .= '</td><tr/>' . "\n";
+                } elseif ($type == 'textarea') {
+                    $html .= '<tr valign="top"><th scope="row"><label for="' . esc_attr($k) . '">' . $v['name'] . '</label></th><td>';
+                    $html .= '<textarea style="width:100%" rows="5" name="' . esc_attr($k) . '" id="' . esc_attr($k) . '" placeholder="' . esc_attr($placeholder) . '" type="text">' . esc_attr($data) . '</textarea>';
                     $html .= '<p class="description">' . $v['description'] . '</p>' . "\n";
                     $html .= '</td><tr/>' . "\n";
                 } elseif ($type == 'posts') {
@@ -440,6 +442,24 @@ class HomesReport
         $fields = [];
 
         if ($meta_box == 'basic' || $meta_box == 'all') {
+            $fields['page_title'] = [
+                'name' => __('Page Headline', $this->token),
+                'description' => __('The headline for your page.', $this->token),
+                'placeholder' => __('You Decide What Your Home Is Worth', $this->token),
+                'type' => 'text',
+                'default' => 'You Decide What Your Home Is Worth',
+                'section' => 'info'
+            ];
+
+            $fields['page_subtitle'] = [
+                'name' => __('Page Sub-Headline', $this->token),
+                'description' => __('The sub-headline for your page.', $this->token),
+                'placeholder' => __('Download a custom report of homes in your area that sold in the last 90 days (from the official database of sold listings).', $this->token),
+                'type' => 'textarea',
+                'default' => 'Download a custom report of homes in your area that sold in the last 90 days (from the official database of sold listings).',
+                'section' => 'info'
+            ];
+
             $fields['call_to_action'] = [
                 'name' => __('Your Call To Action', $this->token),
                 'description' => __('The call to action for users to give you their contact information.', $this->token),
@@ -449,12 +469,12 @@ class HomesReport
                 'section' => 'info'
             ];
 
-            $fields['buyer_quiz'] = [
-                'name' => __('Link To Buyer Quiz', $this->token),
+            $fields['seller_quiz'] = [
+                'name' => __('Link To Seller Quiz', $this->token),
                 'description' => __('The last step of the funnel allows you to link the user to your HomeBuyer Quiz. Enter the link for the quiz here.', $this->token),
                 'placeholder' => '',
                 'type' => 'posts',
-                'default' => 'pf_buyer_quiz',
+                'default' => 'pf_seller_quiz',
                 'section' => 'info'
             ];
 
@@ -638,24 +658,18 @@ class HomesReport
             $email = sanitize_text_field($_POST['email']);
             $source = sanitize_text_field($_POST['permalink']);
             $location = sanitize_text_field($_POST['location']);
-            $price_min = str_replace(',', '', sanitize_text_field($_POST['price_min']));
-            $price_max = str_replace(',', '', sanitize_text_field($_POST['price_max']));
-            $num_beds = sanitize_text_field($_POST['num_beds']);
-            $num_baths = sanitize_text_field($_POST['num_baths']);
+            $price_range = sanitize_text_field($_POST['price']);
 
             $wpdb->query($wpdb->prepare(
                 'INSERT INTO ' . $this->table_name . '
-				 ( blog_id, first_name, email, location, price_min, price_max, num_beds, num_baths, created_at )
-				 VALUES ( %d, %s, %s, %s, %s, %s, %s, %s, NOW() )',
+				 ( blog_id, first_name, email, location, price_range, created_at )
+				 VALUES ( %d, %s, %s, %s, %s, NOW() )',
                 [
                     $blog_id,
                     $first_name,
                     $email,
                     $location,
-                    $price_min,
-                    $price_max,
-                    $num_beds,
-                    $num_baths
+                    $price_range
                 ]
             ));
 
@@ -683,9 +697,7 @@ class HomesReport
             if ($frontdesk_id != null) {
                 $content = '<p>
                               <strong>Location: </strong>' . $location . '<br>
-                              <strong>Price Range: </strong>$' . number_format($price_min) . ' - $' . number_format($price_max) . '<br>
-                              <strong># Bedrooms: </strong>' . $num_beds . '<br>
-                              <strong># Bathrooms: </strong>' . $num_baths . '
+                              <strong>Price Range: </strong>' . $price_range . '
                             </p>';
                 $this->frontdesk->createNote($frontdesk_id, 'Homes Report Responses', $content);
             }

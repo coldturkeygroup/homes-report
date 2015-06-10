@@ -10,17 +10,19 @@
 
 global $pf_homes_report, $wp_query;
 
-$id          = get_the_ID();
-$title       = get_the_title();
-$permalink   = get_permalink();
-$broker      = get_post_meta( $id, 'legal_broker', true );
-$cta         = get_post_meta( $id, 'call_to_action', true );
-$retargeting = get_post_meta( $id, 'retargeting', true );
-$conversion  = get_post_meta( $id, 'conversion', true );
-$photo       = get_post_meta( $id, 'photo', true );
-$name        = get_post_meta( $id, 'name', true );
-$quiz_link   = get_post_meta( $id, 'buyer_quiz', true );
-$phone       = of_get_option( 'phone_number' );
+$id            = get_the_ID();
+$title         = get_the_title();
+$permalink     = get_permalink();
+$broker        = get_post_meta( $id, 'legal_broker', true );
+$page_title    = get_post_meta( $id, 'page_title', true );
+$page_subtitle = get_post_meta( $id, 'page_subtitle', true );
+$cta           = get_post_meta( $id, 'call_to_action', true );
+$retargeting   = get_post_meta( $id, 'retargeting', true );
+$conversion    = get_post_meta( $id, 'conversion', true );
+$photo         = get_post_meta( $id, 'photo', true );
+$name          = get_post_meta( $id, 'name', true );
+$quiz_link     = get_post_meta( $id, 'seller_quiz', true );
+$phone         = of_get_option( 'phone_number' );
 
 // Get the background image
 if ( has_post_thumbnail( $id ) )
@@ -94,12 +96,10 @@ if ( $hover_setting && $hover_setting != '' )
 					<img src="<?= $photo ?>" class="img-responsive img-thumbnail">
 				</div>
 				<div class="col-sm-5">
-					Hey, it's <?= $name ?>. I will send you an updated list of homes for sale within the next 24 hours. <br>
-					Thanks
-					for using the house hunter tool! <br> <strong>I'll email you a custom link as soon as I've researched the active
-						listings that fit your price range.</strong>
+					Hey, it's <?= $name ?>. I will send you an updated list of homes that sold within the next 24 hours. <br>
+					Thanks for using the homes report tool! <br> <strong>I'll email you a custom link as soon as I've researched your requested price range.</strong>
 					<?php if ( $quiz_link != '' ) { ?>
-						<br> Oh, and one more thing. If you're thinking about buying a home this year, take my 14 question <strong>HomeBuyer Quiz</strong> to find out what you'll qualify for.
+						<br> Oh, and one more thing. If you're thinking about selling your home this year, take my 14 question <strong>Seller Quiz</strong> to find out if you're ready to sell.
 						<a href="<?= $quiz_link ?>" class="btn btn-primary btn-block">Take The Quiz</a>
 					<?php } ?>
 				</div>
@@ -109,54 +109,30 @@ if ( $hover_setting && $hover_setting != '' )
 		<form id="homes-report">
 			<div class="row page animated fadeIn">
 				<div class="col-xs-10 col-xs-offset-1 col-sm-12 col-sm-offset-0 col-md-8 col-md-offset-2" id="landing" data-model="landing">
-					<h1 style="text-align: center;" class="landing-title"><?= $title ?></h1>
+					<h1 style="text-align: center;" class="landing-title"><?= $page_title ?></h1>
 
-					<h2 style="text-align: center;" id="subtitle">Sign up for up to date listings with accurate information taken
-						directly from the
-						MLS database.</h2>
+					<h2 style="text-align: center;" id="subtitle"><?= $page_subtitle ?></h2>
 
 					<div class="form-group">
-						<label class="control-label" for="location">Location</label>
-						<input type="text" class="form-control validate" id="location" name="location" placeholder="City">
+						<label class="control-label" for="location">City</label>
+						<input type="text" class="form-control validate" id="location" name="location" placeholder="Your City">
 					</div>
 
-					<div class="row">
-						<div class="col-xs-12 col-sm-6">
-							<label class="control-label">Price</label>
-
-							<div class="form-group">
-								<label class="control-label sr-only" for="price_min">Minimum Price</label>
-
-								<div class="input-group">
-									<span class="input-group-addon">$</span>
-									<input type="text" class="form-control validate" id="price_min" name="price_min" placeholder="Min Price">
-								</div>
-							</div>
-						</div>
-						<div class="col-xs-12 col-sm-6">
-							<label class="control-label" style="visibility: hidden">Price</label>
-
-							<div class="form-group">
-								<label class="control-label sr-only" for="price_max">Maximum Price</label>
-
-								<div class="input-group">
-									<span class="input-group-addon">$</span>
-									<input type="text" class="form-control validate" id="price_max" name="price_max" placeholder="Max Price">
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="row">
-						<div class="col-xs-12 col-sm-6">
-							<label class="control-label" for="num_beds">Bedrooms</label>
-							<input type="text" class="form-control validate" id="num_beds" name="num_beds" placeholder="Any # Beds">
-						</div>
-						<div class="col-xs-12 col-sm-6">
-							<label class="control-label" for="num_baths">Bathrooms</label>
-							<input type="text" class="form-control validate" id="num_baths" name="num_baths" placeholder="Any # Baths">
-						</div>
-					</div>
+                    <div class="form-group">
+                        <label class="control-label" for="price">Price Range</label>
+                        <select class="form-control validate" id="price" name="price">
+                            <option value="$0-$100,000">$0-$100,000</option>
+                            <option value="$150,000-$200,000">$150,000-$200,000</option>
+                            <option value="$200,000-$250,000">$200,000-$250,000</option>
+                            <option value="$250,000-$300,000">$250,000-$300,000</option>
+                            <option value="$300,000-$350,000">$300,000-$350,000</option>
+                            <option value="$350,000-$400,000">$350,000-$400,000</option>
+                            <option value="$400,000-$450,000">$400,000-$450,000</option>
+                            <option value="$450,000-$500,000">$450,000-$500,000</option>
+                            <option value="$500,000-$600,000">$500,000-$600,000</option>
+                            <option value="$600,000+">$600,000+</option>
+                        </select>
+                    </div>
 
 					<button class="btn btn-primary btn-lg btn-block" id="get-results"><?= $cta ?></button>
 				</div>
@@ -168,9 +144,7 @@ if ( $hover_setting && $hover_setting != '' )
 						<div class="modal-body">
 							<h1>Where should we send your search results?</h1>
 
-							<p><span id="num_beds-answer"></span> bedroom, <span id="num_baths-answer"></span> bathroom homes in
-								<span id="location-answer"></span> priced between $<span id="price_min-answer"></span> and
-								$<span id="price_max-answer"></span></p>
+							<p>Homes in <span id="location-answer"></span> that sold for between $<span id="price-answer"></span></p>
 
 							<div class="form-group" style="margin-top:20px">
 								<label for="first_name" class="control-label">First Name</label>

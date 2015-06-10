@@ -275,8 +275,6 @@ class HomesReport_Admin {
 						<th scope="col" class="manage-column entry_nowrap">Email</th>
 						<th scope="col" class="manage-column entry_nowrap">Location</th>
 						<th scope="col" class="manage-column entry_nowrap">Price Range</th>
-						<th scope="col" class="manage-column entry_nowrap"># Beds</th>
-						<th scope="col" class="manage-column entry_nowrap"># Baths</th>
 						<th scope="col" class="manage-column entry_nowrap">Submitted</th>
 					</tr>
 					</thead>
@@ -294,9 +292,7 @@ class HomesReport_Admin {
 		                <td class="entry_nowrap">' . $lead->first_name . '</td>
 		                <td class="entry_nowrap">' . $lead->email . '</td>
 		                <td class="entry_nowrap">' . $lead->location . '</td>
-		                <td class="entry_nowrap">$' . number_format( $lead->price_min ) . ' - $' . number_format( $lead->price_max ) . '</td>
-		                <td class="entry_nowrap">' . $lead->num_beds . '</td>
-		                <td class="entry_nowrap">' . $lead->num_baths . '</td>
+		                <td class="entry_nowrap">' . $lead->price_range . '</td>
 		                <td class="entry_nowrap">' . date( "M j Y, h:i:a", strtotime( $lead->created_at ) ) . '</td>
 		              </tr>';
 					}
@@ -309,8 +305,6 @@ class HomesReport_Admin {
 						<th scope="col" class="manage-column entry_nowrap">Email</th>
 						<th scope="col" class="manage-column entry_nowrap">Location</th>
 						<th scope="col" class="manage-column entry_nowrap">Price Range</th>
-						<th scope="col" class="manage-column entry_nowrap"># Beds</th>
-						<th scope="col" class="manage-column entry_nowrap"># Baths</th>
 						<th scope="col" class="manage-column entry_nowrap">Submitted</th>
 					</tr>
 					</tfoot>
