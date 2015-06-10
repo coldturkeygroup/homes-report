@@ -1,6 +1,7 @@
 {
-  "name": "coldturkeygroup/buyerquiz",
-  "description": "Buyer Quiz Plugin for Platform",
+  "name": "coldturkeygroup/homes-report",
+  "description": "WordPress funnel that collects visitor contact information in exchange for a customized report from a Real Estate agent.",
+  "homepage": "http://coldturkeygroup.com/",
   "license": "proprietary",
   "require": {
     "guzzlehttp/guzzle": "~4.0"
