@@ -463,9 +463,9 @@ class HomesReport
             $fields['call_to_action'] = [
                 'name' => __('Your Call To Action', $this->token),
                 'description' => __('The call to action for users to give you their contact information.', $this->token),
-                'placeholder' => __('Search', $this->token),
+                'placeholder' => __('Send Me The List', $this->token),
                 'type' => 'text',
-                'default' => 'Search',
+                'default' => 'Send Me The List',
                 'section' => 'info'
             ];
 
