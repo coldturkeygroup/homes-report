@@ -562,6 +562,9 @@ class HomesReport
     {
         // Single homes report page template
         if (is_single() && get_post_type() == $this->token) {
+            if (!defined('PLATFORM_FUNNEL'))
+                define('PLATFORM_FUNNEL', 'HOMES_REPORT');
+
             include($this->template_path . 'single-page.php');
             exit;
         }
