@@ -612,11 +612,7 @@ class HomesReport
         if (get_post_type($post_ID) != $this->token)
             return false;
 
-        if (($_POST['post_status'] != 'publish') || ($_POST['original_post_status'] == 'publish'))
-            return false;
-
         global $wpdb;
-        $title = get_the_title($post_ID);
         $permalink = get_permalink($post_ID);
 
         // See if we're using domain mapping
@@ -632,7 +628,21 @@ class HomesReport
                 $permalink = str_replace($domain, 'http://' . $mapped, $permalink);
         }
 
-        $this->frontdesk->createCampaign($title, $permalink);
+        if (($_POST['post_status'] != 'publish') || ($_POST['original_post_status'] == 'publish')) {
+            $campaign_id = get_post_meta($post_ID, 'frontdesk_campaign', true);
+
+            if ($campaign_id != '' && is_int($campaign_id)) {
+                $this->frontdesk->updateCampaign($campaign_id, get_the_title($post_ID), $permalink);
+            }
+
+            return true;
+        }
+
+        $campaign_id = $this->frontdesk->createCampaign(get_the_title($post_ID), $permalink);
+
+        if (is_int($campaign_id)) {
+            update_post_meta($post_ID, 'frontdesk_campaign', $campaign_id);
+        }
     }
 
     /**
@@ -681,7 +691,7 @@ class HomesReport
             $page_id = sanitize_text_field($_POST['page_id']);
             $first_name = sanitize_text_field($_POST['first_name']);
             $email = sanitize_text_field($_POST['email']);
-            $source = sanitize_text_field($_POST['permalink']);
+            $frontdesk_campaign = sanitize_text_field($_POST['frontdesk_campaign']);
             $location = sanitize_text_field($_POST['location']);
             $price_range = sanitize_text_field($_POST['price']);
 
@@ -702,7 +712,7 @@ class HomesReport
 
             // Create the prospect on FrontDesk
             $frontdesk_id = $this->frontdesk->createProspect([
-                'source' => $source,
+                'campaign_id' => $frontdesk_campaign,
                 'first_name' => $first_name,
                 'email' => $email
             ]);

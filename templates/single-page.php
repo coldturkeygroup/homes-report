@@ -12,7 +12,7 @@ global $pf_homes_report, $wp_query;
 
 $id = get_the_ID();
 $title = get_the_title();
-$permalink = get_permalink();
+$frontdesk_campaign = get_post_meta($id, 'frontdesk_campaign', true);
 $broker = get_post_meta($id, 'legal_broker', true);
 $page_title = get_post_meta($id, 'page_title', true);
 $page_subtitle = get_post_meta($id, 'page_subtitle', true);
@@ -159,7 +159,7 @@ if ($hover_setting && $hover_setting != '')
                                 <input type="text" name="email" id="email" class="form-control" required="required" placeholder="Your Email Address">
                             </div>
 
-                            <input name="permalink" type="hidden" value="<?= $permalink; ?>">
+                            <input name="frontdesk_campaign" type="hidden" value="<?= $frontdesk_campaign ?>">
                             <input name="action" type="hidden" id="pf_homes_report_submit_form" value="pf_homes_report_submit_form">
                             <?php wp_nonce_field('pf_homes_report_submit_form', 'pf_homes_report_nonce'); ?>
                             <input name="page_id" type="hidden" value="<?= $id ?>">
@@ -182,26 +182,39 @@ if ($hover_setting && $hover_setting != '')
     </div>
 
     <?php
-    if ( $retargeting != null ) {
+    if ($retargeting != null) {
         ?>
         <!-- Facebook Pixel Code -->
         <script>
-        !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-        n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-        n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-        t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
-        document,'script','//connect.facebook.net/en_US/fbevents.js');
+            !function (f, b, e, v, n, t, s) {
+                if (f.fbq)return;
+                n = f.fbq = function () {
+                    n.callMethod ?
+                        n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+                };
+                if (!f._fbq)f._fbq = n;
+                n.push = n;
+                n.loaded = !0;
+                n.version = '2.0';
+                n.queue = [];
+                t = b.createElement(e);
+                t.async = !0;
+                t.src = v;
+                s = b.getElementsByTagName(e)[0];
+                s.parentNode.insertBefore(t, s)
+            }(window,
+                document, 'script', '//connect.facebook.net/en_US/fbevents.js');
 
-        fbq('init', '<?= $retargeting ?>');
-        fbq('track', "PageView");</script>
+            fbq('init', '<?= $retargeting ?>');
+            fbq('track', "PageView");</script>
         <noscript><img height="1" width="1" style="display:none"
-        src="https://www.facebook.com/tr?id=<?= $retargeting ?>&ev=PageView&noscript=1"
-        /></noscript>
+                       src="https://www.facebook.com/tr?id=<?= $retargeting ?>&ev=PageView&noscript=1"
+            /></noscript>
         <?php
         echo '<input type="hidden" id="retargeting" value="' . $retargeting . '">';
     }
 
-    if ( $conversion != null ) {
+    if ($conversion != null) {
         echo '<input type="hidden" id="conversion" value="' . $conversion . '">';
     }
     ?>

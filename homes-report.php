@@ -1,7 +1,7 @@
 <?php namespace ColdTurkey\HomesReport;
 /*
  * Plugin Name: Homes Report
- * Version: 1.1.3
+ * Version: 1.2
  * Plugin URI: http://www.coldturkeygroup.com/
  * Description: WordPress funnel that collects visitor contact information in exchange for a customized report from a Real Estate agent.
  * Author: Cold Turkey Group
@@ -20,7 +20,7 @@ if (!defined('HOMES_REPORT_PLUGIN_PATH'))
     define('HOMES_REPORT_PLUGIN_PATH', trailingslashit(plugin_dir_path(__FILE__)));
 
 if (!defined('HOMES_REPORT_PLUGIN_VERSION'))
-    define('HOMES_REPORT_PLUGIN_VERSION', '1.1.3');
+    define('HOMES_REPORT_PLUGIN_VERSION', '1.2');
 
 require_once('classes/class-homes-report.php');
 
