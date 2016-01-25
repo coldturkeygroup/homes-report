@@ -3,7 +3,7 @@ Contributors: Aaron Huisinga
 Tags: real estate, platform, homes report
 Requires at least: 3.5
 Tested up to: 4.3
-Stable tag: 1.2
+Stable tag: 1.2.1
 
 WordPress funnel that collects visitor contact information in exchange for a customized report from a Real Estate agent.
 
@@ -11,7 +11,7 @@ WordPress funnel that collects visitor contact information in exchange for a cus
 
 WordPress funnel that collects visitor contact information in exchange for a customized report from a Real Estate agent.
 
-The plugin hooks into FrontDesk using the official API to sync the data of the person submitting the form.
+The plugin hooks into Platform CRM using the official API to sync the data of the person submitting the form.
 
 The website owner is able to collect the name, email, and address information of the user and has a new potential customer.
 
