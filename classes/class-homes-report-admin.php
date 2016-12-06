@@ -1,4 +1,6 @@
-<?php namespace ColdTurkey\HomesReport;
+<?php
+
+namespace ColdTurkey\HomesReport;
 
 if (!defined('ABSPATH')) exit; // Exit if accessed directly.
 
